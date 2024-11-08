@@ -27,6 +27,18 @@ app.post("/create", (req, res) => {
   })
 })
 
+app.get("/edit/:filename", (req, res) => {
+  res.render("edit", { filename: req.params.filename })
+})
+
+app.post("/edit", (req, res) => {
+  console.log(req.body)
+  fs.rename(`./files/${req.body.previous}`, `./files/${req.body.new}`, function (err) {
+    if (err) throw err;
+    res.redirect('/')
+  });
+})
+
 app.listen(route, () => {
   console.log(`Server running at ${route}`)
 })
